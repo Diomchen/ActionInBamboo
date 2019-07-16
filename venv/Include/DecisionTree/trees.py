@@ -182,6 +182,19 @@ def createPlot(inTree):
     plotTree(inTree,(0.5,0.1),'')
     plot.show()
 
+def classify(inputTree,featLabel,testVec):
+    firstStr = list(inputTree.keys())[0]
+    secondDict = inputTree[firstStr]
+    featIndex = featLabel.index(firstStr)
+    for key in secondDict.keys():
+        if testVec[featIndex] == key:
+            if type(secondDict[key]).__name__=='dict':
+                classLabel = classify(secondDict[key],featLabel,testVec)
+            else:
+                classLabel = secondDict[key]
+    return classLabel
+
+
 
 if __name__ == '__main__':
     myDat,labels = createDataSet()
